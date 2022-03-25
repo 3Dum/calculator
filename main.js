@@ -1,17 +1,20 @@
 // global display var
 let display = document.querySelector('.screen');
 // display function to update display each time a button is pressed
-function updateDisplay(num, isResult=false) {
-  if (isResult) {
-    display.textContent = num;
+function updateDisplay() {
+  if (result) {
+    display.textContent = result;
+  } else if (secondNumber) {
+    display.textContent = secondNumber;
   } else {
-    display.textContent = `${display.textContent}${num}`;
+    display.textContent = firstNumber;
   }
 }
 
 // global vars for input 1, operator and second number
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumber = '';
+let secondNumber = '';
+let result = '';
 let operator = '';
 
 // add event listeners to all buttons that return the button's ID
@@ -22,7 +25,18 @@ for (const button of buttons) {
 
 // input function thats called when a button is pressed
 function input(button) {
-  console.log(this.id);
+  if (this.className == 'operator') {
+    operate(this.id);
+    return;
+  }
+  if (secondNumber) {
+    secondNumber = `${secondNumber}${this.id}`;
+    updateDisplay();
+  } else {
+    firstNumber = `${firstNumber}${this.id}`;
+    console.log(firstNumber);
+    updateDisplay();
+  }
 }
 
 // calculation functions for each operator
@@ -30,6 +44,9 @@ function input(button) {
 // operate function that calculates result upon calling an operator
 // if = then resets input vars
 // else move result to input 1 and continue operation
+function operate(operator) {
+  alert(operator);
+}
 
 
 
