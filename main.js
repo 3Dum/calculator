@@ -15,9 +15,15 @@ let secondNumber = 0;
 let operator = '';
 
 // add event listeners to all buttons that return the button's ID
-
+const buttons = document.querySelectorAll('.buttons button');
+for (const button of buttons) {
+  button.addEventListener('click', input);
+}
 
 // input function thats called when a button is pressed
+function input(button) {
+  console.log(this.id);
+}
 
 // calculation functions for each operator
 
