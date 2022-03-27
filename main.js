@@ -24,32 +24,49 @@ for (const button of buttons) {
 // input function thats called when a button is pressed
 function input() {
   if (this.className == 'operator') {
-    if (this.id == 'clear') {
-      clear();
-      return;
-    }
-    if (this.id == 'equals') {
-      operate();
-      operator = '';
-    } else if (operator && secondNumber) {
-      operate();
-    } else {
-      operator = this.id;
-    }
+    handleOperator(this);
     return;
   }
-  // if number
-  if (operator) {
-    secondNumber = `${secondNumber}${this.id}`;
+  if (this.className == 'number') {
+    handleNumber(this);
     updateDisplay();
+    return;
+  }
+  if (this.className == 'function') {
+    handleFunction(this);
+    updateDisplay();
+    return;
+  }
+}
+
+function handleOperator(button) {
+  if (button.id == 'equals') {
+    operate();
+    operator = '';
+  } else if (operator && secondNumber) {
+    operate();
+  } else {
+    operator = button.id;
+  }
+}
+
+function handleNumber(button) {
+  if (operator) {
+    secondNumber = `${secondNumber}${button.id}`;
   } else {
     if (equated) {
-      firstNumber = this.id;
+      firstNumber = button.id;
     } else {
-      firstNumber = `${firstNumber}${this.id}`;
+      firstNumber = `${firstNumber}${button.id}`;
       equated = false;
     }
-    updateDisplay();
+  }
+}
+
+function handleFunction(button) {
+  if (button.className == 'clear') {
+    clear();
+    return;
   }
 }
 
@@ -58,7 +75,6 @@ function clear() {
   secondNumber = '';
   operator = '';
   equated = false;
-  updateDisplay();
 }
 
 // calculation functions for each operator
