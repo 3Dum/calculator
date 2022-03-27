@@ -2,7 +2,7 @@
 let display = document.querySelector('.screen');
 // display function to update display each time a button is pressed
 function updateDisplay() {
-  if (operator) {
+  if (secondNumber) {
     display.textContent = secondNumber;
   } else {
     display.textContent = firstNumber;
@@ -22,15 +22,19 @@ for (const button of buttons) {
 }
 
 // input function thats called when a button is pressed
-function input(button) {
+function input() {
   if (this.className == 'operator') {
-    if (operator || this.id == 'equals') {
+    if (this.id == 'equals') {
+      operate();
+      operator = '';
+    } else if (operator && secondNumber) {
       operate();
     } else {
       operator = this.id;
     }
     return;
   }
+  // if number
   if (operator) {
     secondNumber = `${secondNumber}${this.id}`;
     updateDisplay();
@@ -80,7 +84,6 @@ function operate() {
       firstNumber = divide(firstNumber, secondNumber);
       break;
   }
-  operator = '';
   secondNumber = '';
   equated = true;
   updateDisplay();
