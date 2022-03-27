@@ -40,6 +40,21 @@ function input(button) {
 }
 
 // calculation functions for each operator
+function add(a, b) {
+  return a + b;
+};
+
+function subtract(a, b) {
+  return a - b;
+};
+
+function divide (a, b) {
+  return a / b;
+};
+
+function multiply (a, b) {
+  return a * b;
+};
 
 // operate function that calculates result upon calling an operator
 // if = then resets input vars
@@ -47,7 +62,5 @@ function input(button) {
 function operate(operator) {
   alert(operator);
 }
-
-
 
 
