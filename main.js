@@ -69,8 +69,19 @@ function handleFunction(button) {
     clear();
     return;
   }
+  if (button.id == 'backspace') {
+    if (operator) {
+      secondNumber = [...secondNumber].slice(0, -1).join('');
+    } else {
+      if (equated || firstNumber === '0') {
+        firstNumber = '';
+      } else {
+        firstNumber = [...firstNumber].slice(0, -1).join('');
+      }
+    }
+    return;
+  }
   if (button.id == 'decimal') {
-    // find which number we're working on
     if (operator) {
       if (!secondNumber || secondNumber == 0) {
         secondNumber = '0.';
