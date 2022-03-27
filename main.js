@@ -41,8 +41,9 @@ function input() {
 
 function handleOperator(button) {
   if (button.id == 'equals') {
+    if (!firstNumber || !operator || !secondNumber) return;
     operate();
-    operator = '';
+    if (equated) operator = '';
   } else if (operator && secondNumber) {
     operate();
   } else {
@@ -52,9 +53,9 @@ function handleOperator(button) {
 
 function handleNumber(button) {
   if (operator) {
-    secondNumber = `${secondNumber}${button.id}`;
+    secondNumber = secondNumber === '0' ? button.id : `${secondNumber}${button.id}`;
   } else {
-    if (equated) {
+    if (equated || firstNumber === '0') {
       firstNumber = button.id;
     } else {
       firstNumber = `${firstNumber}${button.id}`;
@@ -129,6 +130,10 @@ function operate() {
       firstNumber = subtract(firstNumber, secondNumber);
       break;
     case 'divide':
+      if (secondNumber == 0) {
+        alert('None of that, please');
+        return;
+      }
       firstNumber = divide(firstNumber, secondNumber);
       break;
   }
