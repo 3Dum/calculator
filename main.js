@@ -9,6 +9,13 @@ function updateDisplay() {
   }
 }
 
+// keyboard support
+document.addEventListener('keydown', keyPress)
+
+function keyPress(e) {
+  console.log(e.key);
+}
+
 // global vars for input 1, operator and second number
 let firstNumber = '';
 let secondNumber = '';
@@ -24,52 +31,52 @@ for (const button of buttons) {
 // input function thats called when a button is pressed
 function input() {
   if (this.className == 'operator') {
-    handleOperator(this);
+    handleOperator(this.id);
     return;
   }
   if (this.className == 'number') {
-    handleNumber(this);
+    handleNumber(this.id);
     updateDisplay();
     return;
   }
   if (this.className == 'function') {
-    handleFunction(this);
+    handleFunction(this.id);
     updateDisplay();
     return;
   }
 }
 
-function handleOperator(button) {
-  if (button.id == 'equals') {
+function handleOperator(op) {
+  if (op == 'equals') {
     if (!firstNumber || !operator || !secondNumber) return;
     operate();
     if (equated) operator = '';
   } else if (operator && secondNumber) {
     operate();
   } else {
-    operator = button.id;
+    operator = op;
   }
 }
 
-function handleNumber(button) {
+function handleNumber(num) {
   if (operator) {
-    secondNumber = secondNumber === '0' ? button.id : `${secondNumber}${button.id}`;
+    secondNumber = secondNumber === '0' ? num : `${secondNumber}${num}`;
   } else {
     if (equated || firstNumber === '0') {
-      firstNumber = button.id;
+      firstNumber = num;
     } else {
-      firstNumber = `${firstNumber}${button.id}`;
+      firstNumber = `${firstNumber}${num}`;
     }
   }
   equated = false;
 }
 
-function handleFunction(button) {
-  if (button.id == 'clear') {
+function handleFunction(func) {
+  if (func == 'clear') {
     clear();
     return;
   }
-  if (button.id == 'backspace') {
+  if (func == 'backspace') {
     if (operator) {
       secondNumber = [...secondNumber].slice(0, -1).join('');
     } else {
@@ -81,7 +88,7 @@ function handleFunction(button) {
     }
     return;
   }
-  if (button.id == 'decimal') {
+  if (func == 'decimal') {
     if (operator) {
       if (!secondNumber || secondNumber == 0) {
         secondNumber = '0.';
