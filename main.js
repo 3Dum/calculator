@@ -24,6 +24,10 @@ for (const button of buttons) {
 // input function thats called when a button is pressed
 function input() {
   if (this.className == 'operator') {
+    if (this.id == 'clear') {
+      clear();
+      return;
+    }
     if (this.id == 'equals') {
       operate();
       operator = '';
@@ -49,6 +53,14 @@ function input() {
   }
 }
 
+function clear() {
+  firstNumber = '';
+  secondNumber = '';
+  operator = '';
+  equated = false;
+  updateDisplay();
+}
+
 // calculation functions for each operator
 function add(a, b) {
   return +a + +b;
@@ -65,6 +77,7 @@ function divide (a, b) {
 function multiply (a, b) {
   return +a * +b;
 };
+
 
 // operate function that calculates result upon calling an operator
 // if = then resets input vars
