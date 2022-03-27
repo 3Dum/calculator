@@ -58,16 +58,35 @@ function handleNumber(button) {
       firstNumber = button.id;
     } else {
       firstNumber = `${firstNumber}${button.id}`;
-      equated = false;
     }
   }
+  equated = false;
 }
 
 function handleFunction(button) {
-  if (button.className == 'clear') {
+  if (button.id == 'clear') {
     clear();
     return;
   }
+  if (button.id == 'decimal') {
+    // find which number we're working on
+    if (operator) {
+      if (!secondNumber || secondNumber == 0) {
+        secondNumber = '0.';
+      } else {
+        if (secondNumber % 1) return;
+        secondNumber =  `${secondNumber}.`;
+      }
+      return; 
+    }
+    if (!firstNumber || equated || firstNumber == 0) {
+      firstNumber = '0.';
+    } else {
+      if (firstNumber.includes('.')) return;
+      firstNumber =  `${firstNumber}.`;
+    }
+  }
+  equated = false;
 }
 
 function clear() {
