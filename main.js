@@ -13,7 +13,11 @@ function updateDisplay() {
 document.addEventListener('keydown', keyPress)
 
 function keyPress(e) {
-  console.log(e.key);
+  const key = e.key;
+  if (Number.isInteger(+key)) {
+    handleNumber(key);
+    return;
+  }
 }
 
 // global vars for input 1, operator and second number
@@ -36,12 +40,10 @@ function input() {
   }
   if (this.className == 'number') {
     handleNumber(this.id);
-    updateDisplay();
     return;
   }
   if (this.className == 'function') {
     handleFunction(this.id);
-    updateDisplay();
     return;
   }
 }
@@ -69,11 +71,13 @@ function handleNumber(num) {
     }
   }
   equated = false;
+  updateDisplay();
 }
 
 function handleFunction(func) {
   if (func == 'clear') {
     clear();
+    updateDisplay();
     return;
   }
   if (func == 'backspace') {
@@ -86,6 +90,7 @@ function handleFunction(func) {
         firstNumber = [...firstNumber].slice(0, -1).join('');
       }
     }
+    updateDisplay();
     return;
   }
   if (func == 'decimal') {
@@ -96,6 +101,7 @@ function handleFunction(func) {
         if (secondNumber % 1) return;
         secondNumber =  `${secondNumber}.`;
       }
+      updateDisplay();
       return; 
     }
     if (!firstNumber || equated || firstNumber == 0) {
@@ -105,6 +111,7 @@ function handleFunction(func) {
       firstNumber =  `${firstNumber}.`;
     }
   }
+  updateDisplay();
   equated = false;
 }
 
