@@ -137,6 +137,7 @@ function operate() {
       firstNumber = divide(firstNumber, secondNumber);
       break;
   }
+  firstNumber = Math.round((firstNumber + Number.EPSILON) * 10e5) / 10e5;
   secondNumber = '';
   equated = true;
   updateDisplay();
