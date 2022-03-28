@@ -18,6 +18,34 @@ function keyPress(e) {
     handleNumber(key);
     return;
   }
+  switch (key) {
+    case 'c': case 'C':
+      handleFunction('clear');
+      break;
+    case 'Backspace':
+      handleFunction('backspace');
+      break;
+    case '.':
+      handleFunction('decimal');
+      break;
+    case '+':
+      handleOperator('add');
+      break;
+    case '/':
+      handleOperator('divide');
+      break;
+    case '*':
+      handleOperator('multiply');
+      break;
+    case '-':
+      handleOperator('subtract');
+      break;
+    case '=': case 'Enter':
+      handleOperator('equals');
+      break;
+    default:
+      return;
+  }
 }
 
 // global vars for input 1, operator and second number
