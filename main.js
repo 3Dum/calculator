@@ -71,18 +71,6 @@ function keyPress(e) {
   }
 }
 
-function oldhandleOperator(op) {
-  if (op == 'equals') {
-    if (!secondNumber) return;
-    operate();
-    operator = '';
-  } else if (operator && secondNumber) {
-    operate();
-  } else {
-    operator = op;
-  }
-}
-
 function handleOperator(op) {
   if (op != 'equals') {
     if (operator && secondNumber) operate();
