@@ -84,14 +84,17 @@ function handleOperator(op) {
 }
 
 function handleNumber(num) {
-  if (operator) {
-    // stops trailing 0's on numbers
-    secondNumber = secondNumber === '0' ? num : `${secondNumber}${num}`;
-  } else {
+  if (!operator) {
     if (equated || firstNumber === '0') {
       firstNumber = num;
     } else {
-      firstNumber = `${firstNumber}${num}`;
+      firstNumber += num;
+    }
+  } else {
+    if (secondNumber === '0') {
+      secondNumber = num;
+    } else {
+      secondNumber += num;
     }
   }
   equated = false;
